@@ -107,4 +107,3 @@ def consultar_puntuacio(puntuacio):
     tornar=""
     while(tornar!='S'):
         tornar=str(input("\nPrem 'S' per tornar al menú. "))
-print("Hóla")
