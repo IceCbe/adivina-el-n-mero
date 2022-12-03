@@ -4,6 +4,8 @@ from os import system
 
 def pista(aleatori_argument, numerointroduit, pistes_possibles):
     aleatori_pista=random.choice(pistes_possibles)
+    while(aleatori_pista==" "):
+        aleatori_pista=random.choice(pistes_possibles)
     if (aleatori_pista=="Parell/imparell"):
         if (aleatori_argument%2==0):
             print("\nPista: Es tracta d'un número parell")
@@ -37,7 +39,7 @@ def jugar(puntuacio, impossible):
     pistes_possibles=["Parell/imparell", "Quadrat", "Xifres", "Bigger/Smaller", "Triple"]
     sortir=False
     while (sortir==False):
-        oportunitats=3
+        oportunitats=5
         intents=1
         endevinat=False
         print("\nSelecciona dificultat: \n")
@@ -91,17 +93,17 @@ def jugar(puntuacio, impossible):
                     if(opcio_pista=="S"):
                         posicio_pista=pista(aleatori,numerointroduit,pistes_possibles)
                         if(posicio_pista==0):
-                            del pistes_possibles[posicio_pista]
+                            pistes_possibles[posicio_pista]=" "
                         elif(posicio_pista==1):
-                            del pistes_possibles[posicio_pista]
+                            pistes_possibles[posicio_pista]=" "
                         elif(posicio_pista==2):
-                            del pistes_possibles[posicio_pista]
+                            pistes_possibles[posicio_pista]=" "
                         elif(posicio_pista==3):
-                            del pistes_possibles[posicio_pista]
+                            pistes_possibles[posicio_pista]=" "
                         elif(posicio_pista==4):
-                            del pistes_possibles[posicio_pista]
+                            pistes_possibles[posicio_pista]=" "
                         else:
-                            del pistes_possibles[posicio_pista]
+                            pistes_possibles[posicio_pista]=" "
         if (endevinat==True):
             print("\nEnhorabona!!! El número era " + str(aleatori) + ". L'has endevinat en " + str(intents) + " intents.")
         else:
