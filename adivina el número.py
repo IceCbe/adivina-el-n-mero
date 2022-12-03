@@ -2,23 +2,31 @@ import random
 import time
 from os import system
 
-def pista(aleatori_argument, numerointroduit):
-    pistes_posibles=["Parell/imparell", "Quadrat", "Xifres", "Bigger/Smaller"]
-    aleatori_pista=random.choice(pistes_posibles)
+def pista(aleatori_argument, numerointroduit, pistes_possibles):
+    aleatori_pista=random.choice(pistes_possibles)
     if (aleatori_pista=="Parell/imparell"):
         if (aleatori_argument%2==0):
             print("\nPista: Es tracta d'un número parell")
+            return 0
         else:
             print("\nPista: Es tracta d'un número imparell")
+            return 0
     elif (aleatori_pista=="Quadrat"):
         print("\nPista: Es tracta d'un número el quadrat del qual és: " + str(aleatori_argument*aleatori_argument))
+        return 1
     elif(aleatori_pista=="Xifres"):
         print(("\nPista: Es tracta d'un número amb ") + str(len(str(aleatori_argument))) + (" xifres"))
+        return 2
+    elif(aleatori_argument=="Triple"):
+        print(("\nPista: el triple d'aquest número és: ") + str(aleatori_argument*3))
+        return 3
     else:
         if (aleatori_argument>numerointroduit):
-            print("\nProva amb un número més gran")
+            print("\nPista: Prova amb un número més gran")
+            return 4
         else:
-            print("\nProva amb un número més petit")
+            print("\nPista: Prova amb un número més petit")
+            return 4
 
 def menu():
     print("\nBenvingut a adivina el número!")
@@ -26,6 +34,7 @@ def menu():
     return opcio_menu
 
 def jugar(puntuacio, impossible):
+    pistes_possibles=["Parell/imparell", "Quadrat", "Xifres", "Bigger/Smaller", "Triple"]
     sortir=False
     while (sortir==False):
         oportunitats=3
@@ -80,35 +89,51 @@ def jugar(puntuacio, impossible):
                         print("\nOpció no vàlida.")
                         opcio_pista=int(input("\nVols una pista? (S/N)"))
                     if(opcio_pista=="S"):
-                        pista(aleatori,numerointroduit)
+                        posicio_pista=pista(aleatori,numerointroduit,pistes_possibles)
+                        if(posicio_pista==0):
+                            del pistes_possibles[posicio_pista]
+                        elif(posicio_pista==1):
+                            del pistes_possibles[posicio_pista]
+                        elif(posicio_pista==2):
+                            del pistes_possibles[posicio_pista]
+                        elif(posicio_pista==3):
+                            del pistes_possibles[posicio_pista]
+                        elif(posicio_pista==4):
+                            del pistes_possibles[posicio_pista]
+                        else:
+                            del pistes_possibles[posicio_pista]
         if (endevinat==True):
             print("\nEnhorabona!!! El número era " + str(aleatori) + ". L'has endevinat en " + str(intents) + " intents.")
         else:
             print("Llàstima!!! El número era " + str(aleatori))
         tornar=str(input("\nVols tornar a jugar? (S/N)"))
         while(tornar!="N" and tornar!="S"):
-            print("\nOpció no vàlida.")
+            print("\nOpció no vàlida")
             tornar=str(input("\nVols tornar a jugar? (S/N)"))
         if(tornar=="N"):
             print("\nSortint del joc...\n")
+            time.sleep(3)
             sortir=True
+        return puntuacio
 
 def main():
     impossible=False
     puntuacio=0
+    
     opcio_menu=menu()
-    while(opcio_menu<1 or opcio_menu>5):
+    while(opcio_menu!=5):
+        while(opcio_menu<1 or opcio_menu>5):
             print("\nOpció no vàlida.\n")
             opcio_menu=menu()
-    while(opcio_menu!=5):
         if (opcio_menu==1):
-            jugar(puntuacio, impossible)
+            puntuacio=puntuacio+jugar(puntuacio, impossible)
         elif(opcio_menu==2):
             consultar_puntuacio(puntuacio)
         elif(opcio_menu==3):
             consultar_regles()
         else:
             credits()
+        opcio_menu=menu()
     print("\nSortint...\n")
 
 def credits():
@@ -121,6 +146,7 @@ def consultar_puntuacio(puntuacio):
     print(("\nLa teva puntuació és: ") + str(puntuacio) + (" punts.\n"))
     if (puntuacio<10):
         print(("Amb " ) + str(10-puntuacio) + (" més punts podràs desbloquejar el nivell 'Impossible'"))
+        impossible=False
     else:
         desbloquejar_impossible=str(input("\nVols desbloquejar el nivell 'Impossible'? (S/N) "))
         if (desbloquejar_impossible=='S'):
@@ -129,9 +155,13 @@ def consultar_puntuacio(puntuacio):
     tornar=""
     while(tornar!='S'):
         tornar=str(input("\nPrem 'S' per tornar al menú. "))
-    return impossible #PASAR POR PARÁMETRO!!!!!!!!!!!!!!!!!!!!!
+    return impossible
 
 def consultar_regles():
-    print("EN DESARROLLO")
+    print("\n\n\nEN DESARROLLO\n\n\n")
+    print("Tornant al menú en...")
+    for i in range(5,0,-1):
+        print(i)
+        time.sleep(1)
 
 main()
